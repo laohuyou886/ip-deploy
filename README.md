@@ -10,12 +10,14 @@ IP Collector 一键部署工具
 
 **Windows (PowerShell - 推荐):**
 ```powershell
-irm https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-collector.ps1 | iex
+$tmp = Join-Path $env:TEMP "run_ip-collector.ps1"
+irm https://gh-proxy.org/https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-collector.ps1 -OutFile $tmp
+& $tmp
 ```
 
 **Windows (批处理 - 兼容老系统):**
 ```batch
-curl -fsSL https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-collector.bat -o %TEMP%\run_ip-collector.bat && %TEMP%\run_ip-collector.bat
+curl -fsSL https://gh-proxy.org/https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-collector.bat -o %TEMP%\run_ip-collector.bat && %TEMP%\run_ip-collector.bat
 ```
 
 **Linux (Bash):**
@@ -83,13 +85,13 @@ curl -fsSL https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-c
 **PowerShell:**
 ```powershell
 $tmp = Join-Path $env:TEMP "run_ip-collector.ps1"
-irm https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-collector.ps1 -OutFile $tmp
+irm https://gh-proxy.org/https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-collector.ps1 -OutFile $tmp
 & $tmp --upload http://127.0.0.1:8080/upload
 ```
 
 **BAT:**
 ```batch
-run_ip-collector.bat --upload http://127.0.0.1:8080/upload
+curl -fsSL https://gh-proxy.org/https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-collector.bat -o %TEMP%\run_ip-collector.bat && %TEMP%\run_ip-collector.bat --upload http://127.0.0.1:8080/upload
 ```
 
 **Bash:**
