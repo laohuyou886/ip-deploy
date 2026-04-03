@@ -82,9 +82,9 @@ curl -fsSL https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-c
 
 **PowerShell:**
 ```powershell
-irm https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-collector.ps1 | iex
-# 然后执行：
-run_ip-collector.ps1 --upload http://127.0.0.1:8080/upload
+$tmp = Join-Path $env:TEMP "run_ip-collector.ps1"
+irm https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-collector.ps1 -OutFile $tmp
+& $tmp --upload http://127.0.0.1:8080/upload
 ```
 
 **BAT:**
