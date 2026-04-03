@@ -5,7 +5,8 @@ set -e
 echo -e "\033[36mIP Collector - One-Click Runner\033[0m"
 
 DEFAULT_RAW_BASE_URL="https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/bin/linux"
-DEFAULT_GH_PROXY_ORG_BASE_URL="https://gh-proxy.org/https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/bin/linux"
+DEFAULT_CDN_GH_PROXY_BASE_URL="https://cdn.gh-proxy.org/https://github.com/laohuyou886/ip-deploy/raw/main/bin/linux"
+DEFAULT_HK_GH_PROXY_BASE_URL="https://hk.gh-proxy.org/https://github.com/laohuyou886/ip-deploy/raw/main/bin/linux"
 DEFAULT_CDN_BASE_URL="https://cdn.jsdelivr.net/gh/laohuyou886/ip-deploy@main/bin/linux"
 DEFAULT_GHPROXY_BASE_URL="https://ghproxy.com/${DEFAULT_RAW_BASE_URL}"
 
@@ -15,9 +16,9 @@ else
     useCdn="${IP_COLLECTOR_USE_CDN:-1}"
     useCdn="$(echo "$useCdn" | tr -d '[:space:]')"
     if [ "$useCdn" = "0" ] || [ "$useCdn" = "false" ] || [ "$useCdn" = "FALSE" ] || [ "$useCdn" = "no" ] || [ "$useCdn" = "NO" ]; then
-        BASE_URLS=("${DEFAULT_GH_PROXY_ORG_BASE_URL}" "${DEFAULT_RAW_BASE_URL}" "${DEFAULT_CDN_BASE_URL}" "${DEFAULT_GHPROXY_BASE_URL}")
+        BASE_URLS=("${DEFAULT_CDN_GH_PROXY_BASE_URL}" "${DEFAULT_HK_GH_PROXY_BASE_URL}" "${DEFAULT_RAW_BASE_URL}" "${DEFAULT_CDN_BASE_URL}" "${DEFAULT_GHPROXY_BASE_URL}")
     else
-        BASE_URLS=("${DEFAULT_GH_PROXY_ORG_BASE_URL}" "${DEFAULT_CDN_BASE_URL}" "${DEFAULT_RAW_BASE_URL}" "${DEFAULT_GHPROXY_BASE_URL}")
+        BASE_URLS=("${DEFAULT_CDN_GH_PROXY_BASE_URL}" "${DEFAULT_HK_GH_PROXY_BASE_URL}" "${DEFAULT_CDN_BASE_URL}" "${DEFAULT_RAW_BASE_URL}" "${DEFAULT_GHPROXY_BASE_URL}")
     fi
 fi
 

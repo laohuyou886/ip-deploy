@@ -84,18 +84,20 @@ curl -fsSL https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-c
 ```powershell
 irm https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-collector.ps1 | iex
 # 然后执行：
-run_ip-collector.ps1 --quick --upload http://127.0.0.1:8080/upload
+run_ip-collector.ps1 --upload http://127.0.0.1:8080/upload
 ```
 
 **BAT:**
 ```batch
-run_ip-collector.bat --quick --upload http://127.0.0.1:8080/upload
+run_ip-collector.bat --upload http://127.0.0.1:8080/upload
 ```
 
 **Bash:**
 ```bash
-./run_ip-collector.sh --quick --upload http://127.0.0.1:8080/upload
+./run_ip-collector.sh --upload http://127.0.0.1:8080/upload
 ```
+
+> 不带 `--quick` 时为普通模式，会提示输入责任人/资产编号/备注（即登记信息）。
 
 默认建议先用 HTTP 本地联调：`http://<server-ip>:8080/upload`。
 若你改为自签名 HTTPS，客户端请设置 `IPCOLLECTOR_TLS_INSECURE=1`。
@@ -105,15 +107,17 @@ run_ip-collector.bat --quick --upload http://127.0.0.1:8080/upload
 假设你在 **10.10.89.113** 上运行 `web-viewer`（默认监听 `0.0.0.0:8080`），上传接口为 `/upload`，那么在局域网另一台 Ubuntu 上直接跑：
 
 ```bash
-curl -fsSL https://gh-proxy.org/https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-collector.sh | bash -s -- --quick --upload http://10.10.89.113:8080/upload
+curl -fsSL https://cdn.gh-proxy.org/https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-collector.sh | bash -s -- --upload http://10.10.89.113:8080/upload
 ```
 
 如果你的服务端启用了 `IPCOLLECTOR_TAKEN_KEY`，客户端需要同样设置：
 
 ```bash
 export IPCOLLECTOR_TAKEN_KEY="你的key"
-curl -fsSL https://gh-proxy.org/https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-collector.sh | bash -s -- --quick --upload http://10.10.89.113:8080/upload
+curl -fsSL https://cdn.gh-proxy.org/https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-collector.sh | bash -s -- --upload http://10.10.89.113:8080/upload
 ```
+
+注意：`bash -s -- --upload ...` 里的 `--` 不能省略；省略会出现 `bash: --: invalid option`。
 
 ## 说明
 

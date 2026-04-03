@@ -4,6 +4,8 @@ Write-Host "IP Collector - One-Click Runner" -ForegroundColor Cyan
 
 $explicitBaseUrl = $env:IP_COLLECTOR_RELEASE_URL
 $defaultRawBaseUrl = "https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/bin/windows"
+$defaultCdnGhProxyBaseUrl = "https://cdn.gh-proxy.org/https://github.com/laohuyou886/ip-deploy/raw/main/bin/windows"
+$defaultHkGhProxyBaseUrl = "https://hk.gh-proxy.org/https://github.com/laohuyou886/ip-deploy/raw/main/bin/windows"
 $defaultCdnBaseUrl = "https://cdn.jsdelivr.net/gh/laohuyou886/ip-deploy@main/bin/windows"
 $defaultGhProxyBaseUrl = "https://ghproxy.com/$defaultRawBaseUrl"
 
@@ -16,9 +18,9 @@ if ($explicitBaseUrl) {
     $useCdn = $useCdn.Trim()
     $cdnOff = @("0","false","FALSE","no","NO") -contains $useCdn
     if ($cdnOff) {
-        $baseUrls += $defaultRawBaseUrl, $defaultCdnBaseUrl, $defaultGhProxyBaseUrl
+        $baseUrls += $defaultCdnGhProxyBaseUrl, $defaultHkGhProxyBaseUrl, $defaultRawBaseUrl, $defaultCdnBaseUrl, $defaultGhProxyBaseUrl
     } else {
-        $baseUrls += $defaultCdnBaseUrl, $defaultRawBaseUrl, $defaultGhProxyBaseUrl
+        $baseUrls += $defaultCdnGhProxyBaseUrl, $defaultHkGhProxyBaseUrl, $defaultCdnBaseUrl, $defaultRawBaseUrl, $defaultGhProxyBaseUrl
     }
 }
 

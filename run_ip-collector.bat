@@ -4,6 +4,8 @@ chcp 65001 >nul
 echo IP Collector - One-Click Runner
 
 set "DEFAULT_RAW_BASE_URL=https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/bin/windows"
+set "DEFAULT_CDN_GH_PROXY_BASE_URL=https://cdn.gh-proxy.org/https://github.com/laohuyou886/ip-deploy/raw/main/bin/windows"
+set "DEFAULT_HK_GH_PROXY_BASE_URL=https://hk.gh-proxy.org/https://github.com/laohuyou886/ip-deploy/raw/main/bin/windows"
 set "DEFAULT_CDN_BASE_URL=https://cdn.jsdelivr.net/gh/laohuyou886/ip-deploy@main/bin/windows"
 set "DEFAULT_GHPROXY_BASE_URL=https://ghproxy.com/https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/bin/windows"
 
@@ -11,13 +13,13 @@ set "BASE_URL_LIST="
 if "%IP_COLLECTOR_RELEASE_URL%"=="" (
     if "%IP_COLLECTOR_USE_CDN%"=="" set "IP_COLLECTOR_USE_CDN=1"
     if /I "%IP_COLLECTOR_USE_CDN%"=="0" (
-        set "BASE_URL_LIST=%DEFAULT_RAW_BASE_URL% %DEFAULT_CDN_BASE_URL% %DEFAULT_GHPROXY_BASE_URL%"
+        set "BASE_URL_LIST=%DEFAULT_CDN_GH_PROXY_BASE_URL% %DEFAULT_HK_GH_PROXY_BASE_URL% %DEFAULT_RAW_BASE_URL% %DEFAULT_CDN_BASE_URL% %DEFAULT_GHPROXY_BASE_URL%"
     ) else if /I "%IP_COLLECTOR_USE_CDN%"=="false" (
-        set "BASE_URL_LIST=%DEFAULT_RAW_BASE_URL% %DEFAULT_CDN_BASE_URL% %DEFAULT_GHPROXY_BASE_URL%"
+        set "BASE_URL_LIST=%DEFAULT_CDN_GH_PROXY_BASE_URL% %DEFAULT_HK_GH_PROXY_BASE_URL% %DEFAULT_RAW_BASE_URL% %DEFAULT_CDN_BASE_URL% %DEFAULT_GHPROXY_BASE_URL%"
     ) else if /I "%IP_COLLECTOR_USE_CDN%"=="no" (
-        set "BASE_URL_LIST=%DEFAULT_RAW_BASE_URL% %DEFAULT_CDN_BASE_URL% %DEFAULT_GHPROXY_BASE_URL%"
+        set "BASE_URL_LIST=%DEFAULT_CDN_GH_PROXY_BASE_URL% %DEFAULT_HK_GH_PROXY_BASE_URL% %DEFAULT_RAW_BASE_URL% %DEFAULT_CDN_BASE_URL% %DEFAULT_GHPROXY_BASE_URL%"
     ) else (
-        set "BASE_URL_LIST=%DEFAULT_CDN_BASE_URL% %DEFAULT_RAW_BASE_URL% %DEFAULT_GHPROXY_BASE_URL%"
+        set "BASE_URL_LIST=%DEFAULT_CDN_GH_PROXY_BASE_URL% %DEFAULT_HK_GH_PROXY_BASE_URL% %DEFAULT_CDN_BASE_URL% %DEFAULT_RAW_BASE_URL% %DEFAULT_GHPROXY_BASE_URL%"
     )
 ) else (
     set "BASE_URL_LIST=%IP_COLLECTOR_RELEASE_URL%"
@@ -47,7 +49,7 @@ for %%B in (%BASE_URL_LIST%) do (
     set "TRY=0"
     :download_retry
     set /a TRY+=1
-    curl -fsSL -o "%BINARY_PATH%" "%%B/%BINARY_NAME%"
+    curl -fL -# --connect-timeout 8 --retry 2 --retry-delay 1 --speed-time 20 --speed-limit 10240 -o "%BINARY_PATH%" "%%B/%BINARY_NAME%"
     if errorlevel 1 (
         echo     Download attempt !TRY!/!RETRIES! failed
         if !TRY! LSS !RETRIES! (
