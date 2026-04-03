@@ -2,9 +2,24 @@ $ErrorActionPreference = "Stop"
 
 Write-Host "IP Collector - One-Click Runner" -ForegroundColor Cyan
 
-$baseUrl = $env:IP_COLLECTOR_RELEASE_URL
-if (-not $baseUrl) {
-    $baseUrl = "https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/bin/windows"
+$explicitBaseUrl = $env:IP_COLLECTOR_RELEASE_URL
+$defaultRawBaseUrl = "https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/bin/windows"
+$defaultCdnBaseUrl = "https://cdn.jsdelivr.net/gh/laohuyou886/ip-deploy@main/bin/windows"
+$defaultGhProxyBaseUrl = "https://ghproxy.com/$defaultRawBaseUrl"
+
+$baseUrls = @()
+if ($explicitBaseUrl) {
+    $baseUrls += $explicitBaseUrl
+} else {
+    $useCdn = $env:IP_COLLECTOR_USE_CDN
+    if (-not $useCdn) { $useCdn = "1" }
+    $useCdn = $useCdn.Trim()
+    $cdnOff = @("0","false","FALSE","no","NO") -contains $useCdn
+    if ($cdnOff) {
+        $baseUrls += $defaultRawBaseUrl, $defaultCdnBaseUrl, $defaultGhProxyBaseUrl
+    } else {
+        $baseUrls += $defaultCdnBaseUrl, $defaultRawBaseUrl, $defaultGhProxyBaseUrl
+    }
 }
 
 $binaryName = "ip-collector.exe"
@@ -15,18 +30,22 @@ $binaryPath = Join-Path $tempDir $binaryName
 Write-Host "Creating temp directory..."
 New-Item -ItemType Directory -Force -Path $tempDir | Out-Null
 
-Write-Host "Downloading $binaryName from $baseUrl..."
+Write-Host "Downloading $binaryName..."
 $maxRetries = 3
 $ok = $false
-for ($i = 1; $i -le $maxRetries; $i++) {
-    try {
-        Invoke-WebRequest -Uri "$baseUrl/$binaryName" -OutFile $binaryPath -UseBasicParsing
-        $ok = $true
-        break
-    } catch {
-        Write-Host "Download attempt $i/$maxRetries failed: $_" -ForegroundColor Yellow
-        Start-Sleep -Seconds 1
+foreach ($baseUrl in $baseUrls) {
+    Write-Host "  - Trying: $baseUrl/$binaryName"
+    for ($i = 1; $i -le $maxRetries; $i++) {
+        try {
+            Invoke-WebRequest -Uri "$baseUrl/$binaryName" -OutFile $binaryPath -UseBasicParsing
+            $ok = $true
+            break
+        } catch {
+            Write-Host "    Download attempt $i/$maxRetries failed: $_" -ForegroundColor Yellow
+            Start-Sleep -Seconds 1
+        }
     }
+    if ($ok) { break }
 }
 if (-not $ok) {
     Write-Host "Download failed after $maxRetries attempts." -ForegroundColor Red
