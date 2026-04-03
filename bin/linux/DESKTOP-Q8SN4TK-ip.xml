@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ComputerNetworkInfo name="DESKTOP-Q8SN4TK">
+    <AssetInfo>
+        <CurrentUser>jc908</CurrentUser>
+        <Owner>AUTO-COLLECTED</Owner>
+        <AssetId>JCZNGD-DZSB-000QUICK</AssetId>
+        <Note>Quick mode scan</Note>
+    </AssetInfo>
+    <Adapter>
+        <Description>lo</Description>
+        <MAC>00:00:00:00:00:00</MAC>
+        <IPAddress>127.0.0.1</IPAddress>
+    </Adapter>
+    <Adapter>
+        <Description>eth0</Description>
+        <MAC>bc:0f:f3:88:36:bf</MAC>
+        <IPAddress>&lt;unknown&gt;</IPAddress>
+    </Adapter>
+    <Adapter>
+        <Description>loopback0</Description>
+        <MAC>00:15:5d:96:9a:88</MAC>
+        <IPAddress>&lt;unknown&gt;</IPAddress>
+    </Adapter>
+    <Adapter>
+        <Description>eth1</Description>
+        <MAC>f4:6d:3f:7c:13:4d</MAC>
+        <IPAddress>10.10.89.113</IPAddress>
+    </Adapter>
+    <Hardware>
+        <CPU>
+            <Vendor>GenuineIntel</Vendor>
+            <Model>13th Gen Intel(R) Core(TM) i7-13700H</Model>
+            <PhysicalCores>10</PhysicalCores>
+            <LogicalCores>20</LogicalCores>
+        </CPU>
+        <Memory>
+            <TotalBytes>8589934592</TotalBytes>
+            <Total>8.00 GiB</Total>
+        </Memory>
+        <Disk>
+            <Vendor>Msft</Vendor>
+            <Model>Virtual Disk</Model>
+            <SerialNumber>&lt;unknown&gt;</SerialNumber>
+            <SizeBytes>1099511627776</SizeBytes>
+            <Size>1.00 TiB</Size>
+        </Disk>
+        <Disk>
+            <Vendor>Msft</Vendor>
+            <Model>Virtual Disk</Model>
+            <SerialNumber>&lt;unknown&gt;</SerialNumber>
+            <SizeBytes>195080192</SizeBytes>
+            <Size>186.04 MiB</Size>
+        </Disk>
+        <Disk>
+            <Vendor>Msft</Vendor>
+            <Model>Virtual Disk</Model>
+            <SerialNumber>&lt;unknown&gt;</SerialNumber>
+            <SizeBytes>2147487744</SizeBytes>
+            <Size>2.00 GiB</Size>
+        </Disk>
+        <Disk>
+            <Vendor>Msft</Vendor>
+            <Model>Virtual Disk</Model>
+            <SerialNumber>&lt;unknown&gt;</SerialNumber>
+            <SizeBytes>407490560</SizeBytes>
+            <Size>388.61 MiB</Size>
+        </Disk>
+        <MainBoard>
+            <Vendor>&lt;unknown&gt;</Vendor>
+            <Model>&lt;unknown&gt;</Model>
+            <Serial>&lt;unknown&gt;</Serial>
+        </MainBoard>
+        <OS>
+            <Name>Ubuntu 24.04.4 LTS</Name>
+            <Version>24.04.4 LTS (Noble Numbat)</Version>
+            <Architecture>64-bit</Architecture>
+        </OS>
+    </Hardware>
+</ComputerNetworkInfo>
