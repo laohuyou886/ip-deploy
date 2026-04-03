@@ -32,8 +32,21 @@ ok=0
 for base in "${BASE_URLS[@]}"; do
     echo "  - Trying: $base/$BINARY_NAME"
     for i in 1 2 3; do
-        if curl -fsSL -o "$BINARY_PATH" "$base/$BINARY_NAME"; then
+        # -# shows a progress bar for large downloads so users can see activity.
+        # speed-time/speed-limit help fail fast on very slow/stalled links.
+        if curl -fL -# \
+            --connect-timeout 8 \
+            --retry 2 \
+            --retry-delay 1 \
+            --speed-time 20 \
+            --speed-limit 10240 \
+            -o "$BINARY_PATH" \
+            "$base/$BINARY_NAME"; then
             ok=1
+            if [ -f "$BINARY_PATH" ]; then
+                size="$(wc -c < "$BINARY_PATH" 2>/dev/null || echo 0)"
+                echo "    Downloaded: ${size} bytes"
+            fi
             break
         fi
         echo "    Download attempt $i/3 failed"
