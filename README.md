@@ -107,14 +107,14 @@ run_ip-collector.bat --upload http://127.0.0.1:8080/upload
 假设你在 **10.10.89.113** 上运行 `web-viewer`（默认监听 `0.0.0.0:8080`），上传接口为 `/upload`，那么在局域网另一台 Ubuntu 上直接跑：
 
 ```bash
-curl -fsSL https://cdn.gh-proxy.org/https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-collector.sh | bash -s -- --upload http://10.10.89.113:8080/upload
+curl -fsSL https://gh-proxy.org/https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-collector.sh | bash -s -- --upload http://10.10.89.113:8080/upload
 ```
 
 如果你的服务端启用了 `IPCOLLECTOR_TAKEN_KEY`，客户端需要同样设置：
 
 ```bash
 export IPCOLLECTOR_TAKEN_KEY="你的key"
-curl -fsSL https://cdn.gh-proxy.org/https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-collector.sh | bash -s -- --upload http://10.10.89.113:8080/upload
+curl -fsSL https://gh-proxy.org/https://raw.githubusercontent.com/laohuyou886/ip-deploy/main/run_ip-collector.sh | bash -s -- --upload http://10.10.89.113:8080/upload
 ```
 
 注意：`bash -s -- --upload ...` 里的 `--` 不能省略；省略会出现 `bash: --: invalid option`。
